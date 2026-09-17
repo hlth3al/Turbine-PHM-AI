@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سامانه پایش سلامت و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM-AI) | حسین لعلیان</title>
+  <style>
+    :root {
+      --bg: #070b13;
+      --card-bg: #0e1626;
+      --card-border: #1e293b;
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.25);
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      padding: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    header {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .header-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    h1 {
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .badge-hil {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .badge-ai {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+    .badge-status {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .metric-value {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .metric-desc {
+      font-size: 0.75rem;
+      color: var(--primary);
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .panel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .panel-card h3 {
+      font-size: 0.95rem;
+      color: var(--primary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+    }
+    canvas {
+      width: 100%;
+      height: 200px;
+      background: #05080e;
+      border-radius: 8px;
+      border: 1px solid #162234;
+    }
+    .terminal {
+      background: #05080e;
+      border: 1px solid #162234;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #38bdf8;
+      height: 200px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+    .disclaimer-card {
+      background: #090e18;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .disclaimer-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .disclaimer-text {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #cbd5e1;
+      text-align: justify;
+    }
+    footer {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <div>
+        <h1>سامانه هوشمند پایش سلامت و پیش‌بینی واماندگی تجهیزات دوار (PHM - AI)</h1>
+        <div class="subtitle">طراحی و توسعه مهندسی: حسین لعلیان (رتبه ۳۲ کنکور دکتری)</div>
+      </div>
+      <div class="badges">
+        <span class="badge badge-hil">● HIL SIMULINK CONNECTED</span>
+        <span class="badge badge-ai">VIBRATION ANFIS ENGINE</span>
+        <span class="badge badge-status">TURBINE UNIT #04 ONLINE</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">شاخص سلامت سازه (Health Index)</div>
+      <div class="metric-value" style="color: var(--success);" id="healthIdx">۹۴.۶ ٪</div>
+      <div class="metric-desc">پایش بلادرنگ فرسایش یاتاقان و شفت</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-label">عمر مفید باقی‌مانده (RUL Estimate)</div>
+      <div class="metric-value" style="color: var(--primary);" id="rulVal">۴٬۸۲۰ ساعت</div>
+      <div class="metric-desc">تخمین استهلاک تا تعمیرات اساسی (Overhaul)</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-label">شدت ارتعاشات موثر (RMS Vibration)</div>
+      <div class="metric-value" id="rmsVal">۲.۱۴ mm/s</div>
+      <div class="metric-desc">در محدوده مجاز استاندارد ISO 10816-3</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-label">فرکانس تشدید بحرانی (Critical Peak)</div>
+      <div class="metric-value" id="freqVal">۴۸.۵ Hz</div>
+      <div class="metric-desc">آنالیز فوریه سریع FFT لبه پردازشگر HIL</div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="panel-card">
+      <h3>طیف ارتعاشات بلادرنگ سنسور پیزوالکتریک (Real-Time Vibration Waveform)</h3>
+      <canvas id="vibeCanvas"></canvas>
+    </div>
+
+    <div class="panel-card">
+      <h3>گزارش رویدادهای هوش مصنوعی و تله‌متری لبه</h3>
+      <div class="terminal" id="termLogs">
+        <div>[سیستم] اتصال بی‌درنگ لایه استنتاج به شبیه‌ساز توربین مپنا/HIL برقرار است.</div>
+        <div>[آنالیز] عدم تعادل دینامیکی روتور کمتر از ۰.۰۵ گرم در حد استاندارد.</div>
+        <div>[سنسور] دمای هیدرودینامیک یاتاقان ژورنال ۶۲.۴ درجه سانتی‌گراد پایدار.</div>
+        <div>[مدل] ضریب اطمینان شبکه پیش‌بینی واماندگی ۹۸.۷٪ ثبت گردید.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer-card">
+    <div class="disclaimer-title">بیانیه حقوقی و فنی سیستم (Demo Verification):</div>
+    <div class="disclaimer-text">
+      جهت ممانعت از کپی‌برداری غیرمجاز و حفظ حقوق مالکیت فکری، این نسخه ارائه‌شده صرفاً یک دمو با داده‌های نمونه و تقلیل‌یافته (Synthetic/Minimal) می‌باشد. در صورت ثبت سفارش صنعتی، پنل نهایی به‌صورت تکاملی توسعه یافته و از طریق پروتکل‌های سخت‌افزاری صنعتی (HIL) به لبه‌های هوش مصنوعی فدرال پردازشی واقعی (Real-Time Sensors Edge)، داده‌های مدل‌های شبیه‌ساز Simulink متصل می‌گردد تا کمترین ضریب خطا محاسبه نماید. و هر زمان پل واقعی Simulink/HIL و سنسورهای هوش مصنوعی لبه فدرال متصل شوند، سیستم آماده دریافت اطلاعات زنده خواهد بود.
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      طراحی و توسعه مهندسی: <strong>حسین لعلیان؛ رتبه ۳۲ کنکور دکتری</strong>
+    </div>
+    <div>
+      رایانامه رسمی ارتباطات صنعتی: <a href="mailto:ai.algorithms.ballistics@gmail.com">ai.algorithms.ballistics@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('vibeCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resizeCanvas() {
+      width = canvas.width = canvas.parentElement.clientWidth - 32;
+      height = canvas.height = 200;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let offset = 0;
+    function drawWave() {
+      ctx.clearRect(0, 0, width, height);
+      
+      // رسم شبکه شطرنجی
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < width; x += 40) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+      for (let y = 0; y < height; y += 40) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+
+      // رسم موج ارتعاشات تلفیقی
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let x = 0; x < width; x++) {
+        const t = (x + offset) * 0.05;
+        // ترکیب هارمونیک اصلی + هارمونیک دوم بلبرینگ + نویز
+        const y = height / 2 + 
+                  Math.sin(t) * 35 + 
+                  Math.sin(t * 2.8) * 15 + 
+                  (Math.random() - 0.5) * 6;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      offset += 2;
+      requestAnimationFrame(drawWave);
+    }
+    drawWave();
+
+    // به‌روزرسانی میکرو مقادیر
+    setInterval(() => {
+      const rms = (2.10 + Math.random() * 0.08).toFixed(2);
+      const freq = (48.3 + Math.random() * 0.4).toFixed(1);
+      document.getElementById('rmsVal').innerText = rms + ' mm/s';
+      document.getElementById('freqVal').innerText = freq + ' Hz';
+    }, 2000);
+  </script>
+</body>
+</html>

@@ -3,325 +3,430 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>پنل فرماندهی عملیات پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin) | حسین لعلیان</title>
+  <title>پنل فرماندهی پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin) | حسین لعلیان</title>
   <style>
     :root {
-      --bg: #070b13;
-      --card-bg: #0e1626;
+      --bg: #030712;
+      --card-bg: #0b1528;
       --card-border: #1e293b;
       --primary: #38bdf8;
-      --primary-glow: rgba(56, 189, 248, 0.25);
-      --accent: #f59e0b;
-      --success: #10b981;
-      --danger: #ef4444;
-      --text-main: #f8fafc;
+      --accent: #6366f1;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --text: #f8fafc;
       --text-muted: #94a3b8;
     }
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, sans-serif;
     }
     body {
       background-color: var(--bg);
-      color: var(--text-main);
+      color: var(--text);
       padding: 16px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
-    header {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .header-top {
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* هدر فرماندهی */
+    header {
+      background: linear-gradient(135deg, #0b1528 0%, #0f172a 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
       gap: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
     }
     h1 {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-    .subtitle {
-      font-size: 0.9rem;
+      font-size: 1.25rem;
+      font-weight: 900;
       color: var(--primary);
-      font-weight: 600;
+      line-height: 1.8;
     }
-    .badges {
+    .author-badge {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #cbd5e1;
       display: flex;
-      gap: 8px;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-strip {
+      display: flex;
+      gap: 10px;
       flex-wrap: wrap;
+      align-items: center;
     }
     .badge {
-      padding: 6px 12px;
-      border-radius: 6px;
       font-size: 0.75rem;
-      font-weight: 700;
-      border: 1px solid transparent;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      direction: ltr;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .badge-hil {
+    .badge-green {
       background: rgba(16, 185, 129, 0.15);
-      color: var(--success);
-      border-color: rgba(16, 185, 129, 0.3);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.35);
     }
-    .badge-ai {
+    .badge-blue {
       background: rgba(56, 189, 248, 0.15);
       color: var(--primary);
-      border-color: rgba(56, 189, 248, 0.3);
+      border: 1px solid rgba(56, 189, 248, 0.35);
     }
-    .badge-status {
+    .badge-amber {
       background: rgba(245, 158, 11, 0.15);
-      color: var(--accent);
-      border-color: rgba(245, 158, 11, 0.3);
+      color: var(--amber);
+      border: 1px solid rgba(245, 158, 11, 0.35);
     }
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+      animation: pulse 1.5s infinite;
     }
-    .metric-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* بیانیه حقوقی و فنی سیستم */
+    .disclaimer-box {
+      background: #091220;
+      border: 1px solid #1e3a5f;
+      border-right: 4px solid var(--amber);
       border-radius: 10px;
-      padding: 16px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-    .metric-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-    .metric-value {
-      font-size: 1.45rem;
+    .disclaimer-title {
+      font-size: 0.88rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--amber);
     }
-    .metric-desc {
-      font-size: 0.75rem;
-      color: var(--primary);
+    .disclaimer-text {
+      font-size: 0.82rem;
+      line-height: 1.85;
+      color: #cbd5e1;
+      text-align: justify;
     }
-    .main-grid {
+
+    /* گرید ویجت‌های تله‌متری */
+    .metrics-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
     }
-    @media (max-width: 900px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    .panel-card {
+    .metric-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 16px;
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .metric-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .metric-val {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #fff;
+      font-feature-settings: "tnum";
+      font-variant-numeric: tabular-nums;
+    }
+    .metric-sub {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+    .metric-accent-1 { border-top: 3px solid var(--emerald); }
+    .metric-accent-2 { border-top: 3px solid var(--primary); }
+    .metric-accent-3 { border-top: 3px solid var(--amber); }
+    .metric-accent-4 { border-top: 3px solid var(--accent); }
+
+    /* مانیتور اسیلوسکوپ و نمودار ارتعاشات */
+    .chart-section {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-    .panel-card h3 {
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chart-title {
       font-size: 0.95rem;
-      color: var(--primary);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 8px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .canvas-container {
+      background: #040812;
+      border: 1px solid #13233c;
+      border-radius: 8px;
+      height: 220px;
+      width: 100%;
+      position: relative;
     }
     canvas {
       width: 100%;
-      height: 200px;
-      background: #05080e;
-      border-radius: 8px;
-      border: 1px solid #162234;
+      height: 100%;
+      display: block;
     }
-    .terminal {
-      background: #05080e;
-      border: 1px solid #162234;
-      border-radius: 8px;
-      padding: 12px;
-      font-family: monospace;
-      font-size: 0.8rem;
-      color: #38bdf8;
-      height: 200px;
-      overflow-y: auto;
-      line-height: 1.6;
+
+    /* گزارش هوش مصنوعی لبه */
+    .logs-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .disclaimer-card {
-      background: #090e18;
-      border: 1px solid #1e293b;
-      border-radius: 10px;
-      padding: 16px;
+    .log-row {
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+      padding-bottom: 6px;
     }
-    .disclaimer-title {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: var(--accent);
-      margin-bottom: 8px;
+    .log-tag {
+      color: var(--primary);
+      font-weight: 700;
     }
-    .disclaimer-text {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: #cbd5e1;
-      text-align: justify;
-    }
+
+    /* فوتر اختصاصی */
     footer {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 16px;
+      border-radius: 12px;
+      padding: 16px 20px;
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.88rem;
     }
-    footer a {
+    .footer-name {
+      font-weight: 800;
+      color: #f1f5f9;
+    }
+    .footer-email {
       color: var(--primary);
       text-decoration: none;
+      font-weight: 700;
+      direction: ltr;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-top">
-      <div>
-        <h1>پنل  فرماندهی عملیات پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin)</h1>
-        <div class="subtitle">طراحی و توسعه مهندسی: حسین لعلیان (رتبه ۳۲ کنکور دکتری) | برگرفته از پرپوزال حسین لعلیان سال ۱۳۹۵</div>
+  <div class="container">
+
+    <!-- هدر فرماندهی -->
+    <header>
+      <div class="title-row">
+        <div>
+          <h1>پنل فرماندهی عملیات پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin)</h1>
+          <div class="author-badge">طراحی و توسعه مهندسی: حسین لعلیان (رتبه ۳۲ کنکور دکتری)</div>
+        </div>
+        <div class="status-strip">
+          <span class="badge badge-green"><span class="pulse-dot"></span>● HIL SIMULINK CONNECTED</span>
+          <span class="badge badge-blue">VIBRATION ANFIS ENGINE</span>
+          <span class="badge badge-amber">TURBINE UNIT #04 ONLINE</span>
+        </div>
       </div>
-      <div class="badges">
-        <span class="badge badge-hil">● HIL SIMULINK CONNECTED</span>
-        <span class="badge badge-ai">VIBRATION ANFIS ENGINE</span>
-        <span class="badge badge-status">TURBINE UNIT #04 ONLINE</span>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <div class="metrics-grid">
-    <div class="metric-card">
-      <div class="metric-label">شاخص سلامت سازه (Health Index)</div>
-      <div class="metric-value" style="color: var(--success);" id="healthIdx">۹۴.۶ ٪</div>
-      <div class="metric-desc">پایش بلادرنگ فرسایش یاتاقان و شفت</div>
-    </div>
-
-    <div class="metric-card">
-      <div class="metric-label">عمر مفید باقی‌مانده (RUL Estimate)</div>
-      <div class="metric-value" style="color: var(--primary);" id="rulVal">۴٬۸۲۰ ساعت</div>
-      <div class="metric-desc">تخمین استهلاک تا تعمیرات اساسی (Overhaul)</div>
-    </div>
-
-    <div class="metric-card">
-      <div class="metric-label">شدت ارتعاشات موثر (RMS Vibration)</div>
-      <div class="metric-value" id="rmsVal">۲.۱۴ mm/s</div>
-      <div class="metric-desc">در محدوده مجاز استاندارد ISO 10816-3</div>
-    </div>
-
-    <div class="metric-card">
-      <div class="metric-label">فرکانس تشدید بحرانی (Critical Peak)</div>
-      <div class="metric-value" id="freqVal">۴۸.۵ Hz</div>
-      <div class="metric-desc">آنالیز فوریه سریع FFT لبه پردازشگر HIL</div>
-    </div>
-  </div>
-
-  <div class="main-grid">
-    <div class="panel-card">
-      <h3>طیف ارتعاشات بلادرنگ سنسور پیزوالکتریک (Real-Time Vibration Waveform)</h3>
-      <canvas id="vibeCanvas"></canvas>
-    </div>
-
-    <div class="panel-card">
-      <h3>گزارش رویدادهای هوش مصنوعی و تله‌متری لبه</h3>
-      <div class="terminal" id="termLogs">
-        <div>[سیستم] اتصال بی‌درنگ لایه استنتاج به شبیه‌ساز توربین مپنا/HIL برقرار است.</div>
-        <div>[آنالیز] عدم تعادل دینامیکی روتور کمتر از ۰.۰۵ گرم در حد استاندارد.</div>
-        <div>[سنسور] دمای هیدرودینامیک یاتاقان ژورنال ۶۲.۴ درجه سانتی‌گراد پایدار.</div>
-        <div>[مدل] ضریب اطمینان شبکه پیش‌بینی واماندگی ۹۸.۷٪ ثبت گردید.</div>
+    <!-- بیانیه حقوقی و فنی -->
+    <div class="disclaimer-box">
+      <div class="disclaimer-title">⚠️ بیانیه حقوقی و فنی سیستم (Demo Verification):</div>
+      <div class="disclaimer-text">
+        جهت ممانعت از کپی‌برداری غیرمجاز و حفظ حقوق مالکیت فکری، این پنلها؛پلتفرمها و داشبوردهای ارائه‌شده صرفاً یک دمو با داده‌های نمونه و تقلیل‌یافته (Synthetic/Minimal) می‌باشد. که در صورت ثبت سفارش صنعتی، پنل،پلتفرم و داشبورد نهایی شما بصورت تکاملی توسعه یافته و از طریق پروتکل‌های سخت‌افزاری صنعتی (HIL) به لبه‌های پردازشی واقعی (Real-Time Sensors Edge)، داده‌های واقعی و مدل‌های شبیه‌ساز Simulink متصل می‌گردد تا کمترین ضریب خطا محاسبه شود. و هر زمان پل واقعی Simulink/HIL و سنسورهای هوش مصنوعی لبه فدرال متصل شود، سیستم شما آماده دریافت اطلاعات زنده خواهد بود.
       </div>
     </div>
-  </div>
 
-  <div class="disclaimer-card">
-    <div class="disclaimer-title">بیانیه حقوقی و فنی سیستم (Demo Verification):</div>
-    <div class="disclaimer-text">
-      جهت ممانعت از کپی‌برداری غیرمجاز و حفظ حقوق مالکیت فکری، این نسخه ارائه‌شده صرفاً یک دمو با داده‌های نمونه و تقلیل‌یافته (Synthetic/Minimal) می‌باشد. در صورت ثبت سفارش صنعتی، پنل نهایی به‌صورت تکاملی توسعه یافته و از طریق پروتکل‌های سخت‌افزاری صنعتی (HIL) به لبه‌های هوش مصنوعی فدرال پردازشی واقعی (Real-Time Sensors Edge)، داده‌های مدل‌های شبیه‌ساز Simulink متصل می‌گردد تا کمترین ضریب خطا محاسبه نماید. و هر زمان پل واقعی Simulink/HIL و سنسورهای هوش مصنوعی لبه فدرال متصل شوند، سیستم آماده دریافت اطلاعات زنده خواهد بود.
-    </div>
-  </div>
+    <!-- ویجت‌های اصلی پایش و پیش‌بینی -->
+    <div class="metrics-grid">
+      <div class="metric-card metric-accent-1">
+        <div class="metric-label">شاخص سلامت سازه (Health Index)</div>
+        <div class="metric-val" style="color: var(--emerald);" id="healthIndex">۹۴.۶ ٪</div>
+        <div class="metric-sub">پایش بلادرنگ فرسایش یاتاقان و شفت</div>
+      </div>
 
-  <footer>
-    <div>
-      طراحی و توسعه مهندسی: <strong>حسین لعلیان؛ رتبه ۳۲ کنکور دکتری</strong>
+      <div class="metric-card metric-accent-2">
+        <div class="metric-label">عمر مفید باقی‌مانده (RUL Estimate)</div>
+        <div class="metric-val" id="rulValue">۴٬۸۲۰ ساعت</div>
+        <div class="metric-sub">تخمین استهلاک تا تعمیرات اساسی (Overhaul)</div>
+      </div>
+
+      <div class="metric-card metric-accent-3">
+        <div class="metric-label">شدت ارتعاشات موثر (RMS Vibration)</div>
+        <div class="metric-val" style="color: var(--amber);" id="rmsVib">2.11 mm/s</div>
+        <div class="metric-sub">در محدوده مجاز استاندارد ISO 10816-3</div>
+      </div>
+
+      <div class="metric-card metric-accent-4">
+        <div class="metric-label">فرکانس تشدید بحرانی (Critical Peak)</div>
+        <div class="metric-val" id="criticalFreq">48.4 Hz</div>
+        <div class="metric-sub">آنالیز فوریه سریع FFT لبه پردازشگر HIL</div>
+      </div>
     </div>
-    <div>
-      رایانامه رسمی ارتباطات صنعتی: <a href="mailto:ai.algorithms.ballistics@gmail.com">ai.algorithms.ballistics@gmail.com</a>
+
+    <!-- نمودار ارتعاشات بلادرنگ پیزوالکتریک -->
+    <div class="chart-section">
+      <div class="chart-header">
+        <div class="chart-title">طیف ارتعاشات بلادرنگ سنسور پیزوالکتریک (Real-Time Vibration Waveform)</div>
+        <span class="badge badge-blue">Piezo-Sensor Sampling: 10 kHz</span>
+      </div>
+      <div class="canvas-container">
+        <canvas id="scopeCanvas"></canvas>
+      </div>
     </div>
-  </footer>
+
+    <!-- گزارش رویدادهای لبه -->
+    <div class="logs-card">
+      <div class="chart-title" style="margin-bottom: 4px;">گزارش رویدادهای هوش مصنوعی و تله‌متری لبه</div>
+      <div class="log-row">
+        <span class="log-tag">[سیستم]</span>
+        <span>اتصال بی‌درنگ لایه استنتاج فازی-عصبی ANFIS به شبیه‌ساز توربین مپنا/HIL برقرار است.</span>
+      </div>
+      <div class="log-row">
+        <span class="log-tag">[آنالیز]</span>
+        <span>عدم تعادل دینامیکی روتور کمتر از ۰.۰۵ گرم در حد استاندارد ISO محاسبه شد.</span>
+      </div>
+      <div class="log-row">
+        <span class="log-tag">[سنسور]</span>
+        <span>دمای هیدرودینامیک یاتاقان ژورنال ۶۲.۴ درجه سانتی‌گراد پایدار است.</span>
+      </div>
+      <div class="log-row">
+        <span class="log-tag">[مدل]</span>
+        <span>ضریب اطمینان شبکه پیش‌بینی واماندگی ۹۸.۷٪ ثبت گردید.</span>
+      </div>
+    </div>
+
+    <!-- فوتر رسمی -->
+    <footer>
+      <div class="footer-name">مدیر عامل حسین لعلیان - رتبه ۳۲ کنکور دکتری</div>
+      <a href="mailto:ai.algorithms.ballistics@gmail.com" class="footer-email">ai.algorithms.ballistics@gmail.com</a>
+    </footer>
+
+  </div>
 
   <script>
-    const canvas = document.getElementById('vibeCanvas');
+    // اسیلوسکوپ زنده ارتعاشات غیرخطی پیزوالکتریک
+    const canvas = document.getElementById('scopeCanvas');
     const ctx = canvas.getContext('2d');
-    let width, height;
+    let phase = 0;
 
     function resizeCanvas() {
-      width = canvas.width = canvas.parentElement.clientWidth - 32;
-      height = canvas.height = 200;
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    let offset = 0;
     function drawWave() {
-      ctx.clearRect(0, 0, width, height);
-      
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.fillStyle = '#040812';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // رسم شبکه شطرنجی پس‌زمینه
+      ctx.strokeStyle = 'rgba(30, 41, 59, 0.4)';
       ctx.lineWidth = 1;
-      for (let x = 0; x < width; x += 40) {
+      const step = 30;
+      for (let x = 0; x < canvas.width; x += step) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
+        ctx.lineTo(x, canvas.height);
         ctx.stroke();
       }
-      for (let y = 0; y < height; y += 40) {
+      for (let y = 0; y < canvas.height; y += step) {
         ctx.beginPath();
         ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
+        ctx.lineTo(canvas.width, y);
         ctx.stroke();
       }
 
+      // رسم موج ارتعاشی
+      ctx.beginPath();
       ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 2;
-      ctx.beginPath();
-      for (let x = 0; x < width; x++) {
-        const t = (x + offset) * 0.05;
-        const y = height / 2 + 
-                  Math.sin(t) * 35 + 
-                  Math.sin(t * 2.8) * 15 + 
-                  (Math.random() - 0.5) * 6;
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = '#38bdf8';
+
+      const midY = canvas.height / 2;
+      for (let x = 0; x < canvas.width; x++) {
+        const t = (x * 0.035) + phase;
+        // ترکیب هارمونیک اصلی + هارمونیک ۳ام فرکانس تیغه‌ها + نویز تصادفی صنعتی
+        const y = midY + 
+                  Math.sin(t) * 38 + 
+                  Math.sin(t * 2.8) * 16 + 
+                  (Math.random() - 0.5) * 4;
         if (x === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       }
       ctx.stroke();
+      ctx.shadowBlur = 0;
 
-      offset += 2;
+      phase += 0.08;
       requestAnimationFrame(drawWave);
     }
     drawWave();
 
+    // به‌روزرسانی دینامیک ملایم مقادیر تله‌متری
     setInterval(() => {
-      const rms = (2.10 + Math.random() * 0.08).toFixed(2);
-      const freq = (48.3 + Math.random() * 0.4).toFixed(1);
-      document.getElementById('rmsVal').innerText = rms + ' mm/s';
-      document.getElementById('freqVal').innerText = freq + ' Hz';
+      const rms = (2.10 + Math.random() * 0.04).toFixed(2);
+      document.getElementById('rmsVib').innerText = rms + ' mm/s';
+      
+      const freq = (48.3 + Math.random() * 0.3).toFixed(1);
+      document.getElementById('criticalFreq').innerText = freq + ' Hz';
     }, 2000);
   </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>پنل فرماندهی پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin) | حسین لعلیان</title>
+  <title>پنل، داشبورد و پلتفرم فرماندهی عملیات پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin) | حسین لعلیان</title>
   <style>
     :root {
       --bg: #030712;
@@ -13,141 +13,41 @@
       --accent: #6366f1;
       --emerald: #10b981;
       --amber: #f59e0b;
-      --rose: #f43f5e;
+      --danger: #ef4444;
       --text: #f8fafc;
       --text-muted: #94a3b8;
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, sans-serif;
-    }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      padding: 16px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 16px; min-height: 100vh; line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
 
-    /* هدر فرماندهی */
-    header {
-      background: linear-gradient(135deg, #0b1528 0%, #0f172a 100%);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    /* Header */
+    header { 
+      background: linear-gradient(135deg, #0b1528 0%, #0f172a 100%); 
+      border: 1px solid var(--card-border); 
+      border-radius: 14px; 
+      padding: 24px; 
+      border-right: 5px solid var(--primary);
     }
-    .title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    h1 {
-      font-size: 1.25rem;
-      font-weight: 900;
-      color: var(--primary);
-      line-height: 1.8;
-    }
-    .author-badge {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #cbd5e1;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .status-strip {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .badge {
-      font-size: 0.75rem;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 6px;
-      letter-spacing: 0.5px;
-      direction: ltr;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .badge-green {
-      background: rgba(16, 185, 129, 0.15);
-      color: var(--emerald);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-    }
-    .badge-blue {
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--primary);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-    }
-    .badge-amber {
+    h1 { font-size: 1.35rem; color: var(--primary); margin-bottom: 8px; line-height: 1.5; }
+    .subtitle { color: #cbd5e1; font-size: 0.95rem; margin-bottom: 6px; }
+    .badge-proposal {
+      display: inline-block;
       background: rgba(245, 158, 11, 0.15);
       color: var(--amber);
       border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-top: 6px;
     }
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--emerald);
-      box-shadow: 0 0 10px var(--emerald);
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+    .status-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .badge { font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; background: rgba(56, 189, 248, 0.15); color: var(--primary); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge.emerald { background: rgba(16, 185, 129, 0.15); color: var(--emerald); border-color: rgba(16, 185, 129, 0.3); }
 
-    /* بیانیه حقوقی و فنی سیستم */
-    .disclaimer-box {
-      background: #091220;
-      border: 1px solid #1e3a5f;
-      border-right: 4px solid var(--amber);
-      border-radius: 10px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .disclaimer-title {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: var(--amber);
-    }
-    .disclaimer-text {
-      font-size: 0.82rem;
-      line-height: 1.85;
-      color: #cbd5e1;
-      text-align: justify;
-    }
-
-    /* گرید ویجت‌های تله‌متری */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
-    }
+    /* Telemetry Cards */
+    .telemetry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
     .metric-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -155,279 +55,379 @@
       padding: 18px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      position: relative;
-      overflow: hidden;
+      gap: 6px;
     }
-    .metric-label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-    .metric-val {
-      font-size: 1.85rem;
-      font-weight: 900;
-      color: #fff;
-      font-feature-settings: "tnum";
-      font-variant-numeric: tabular-nums;
-    }
-    .metric-sub {
-      font-size: 0.78rem;
-      color: #94a3b8;
-    }
-    .metric-accent-1 { border-top: 3px solid var(--emerald); }
-    .metric-accent-2 { border-top: 3px solid var(--primary); }
-    .metric-accent-3 { border-top: 3px solid var(--amber); }
-    .metric-accent-4 { border-top: 3px solid var(--accent); }
+    .metric-title { font-size: 0.85rem; color: var(--text-muted); }
+    .metric-val { font-size: 1.7rem; font-weight: 900; color: var(--text); }
+    .metric-sub { font-size: 0.75rem; color: #64748b; }
 
-    /* مانیتور اسیلوسکوپ و نمودار ارتعاشات */
-    .chart-section {
+    /* Chart & Waveform Area */
+    .chart-container {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      padding: 20px;
     }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .chart-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #fff;
-    }
-    .canvas-container {
-      background: #040812;
-      border: 1px solid #13233c;
+    .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .chart-title { font-size: 1rem; color: var(--primary); font-weight: bold; }
+    canvas#waveformCanvas {
+      width: 100%;
+      height: 180px;
+      background: #060e1c;
       border-radius: 8px;
-      height: 220px;
-      width: 100%;
-      position: relative;
-    }
-    canvas {
-      width: 100%;
-      height: 100%;
+      border: 1px solid #1e293b;
       display: block;
     }
 
-    /* گزارش هوش مصنوعی لبه */
-    .logs-card {
-      background: var(--card-bg);
+    /* System Logs */
+    .log-box {
+      background: #060e1c;
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .log-row {
+      border-radius: 10px;
+      padding: 14px;
+      font-family: monospace;
       font-size: 0.82rem;
-      line-height: 1.8;
       color: #94a3b8;
       display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
-      padding-bottom: 6px;
+      flex-direction: column;
+      gap: 6px;
     }
-    .log-tag {
-      color: var(--primary);
-      font-weight: 700;
-    }
+    .log-line span.tag { color: var(--primary); font-weight: bold; }
+    .log-line span.ok { color: var(--emerald); }
 
-    /* فوتر اختصاصی */
-    footer {
-      background: var(--card-bg);
+    /* Interactive Action Center (5 Buttons) */
+    .ops-section {
+      background: linear-gradient(180deg, #0b1528 0%, #080f1e 100%);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .ops-header-title { font-size: 1.15rem; color: var(--primary); font-weight: bold; }
+    .ops-header-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; }
+
+    .action-btn-item {
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--card-bg);
+      transition: all 0.25s ease;
+    }
+    .action-btn-item:hover { border-color: var(--primary); }
+    
+    .action-btn-trigger {
+      width: 100%;
+      text-align: right;
       padding: 16px 20px;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.88rem;
+      gap: 10px;
     }
-    .footer-name {
-      font-weight: 800;
-      color: #f1f5f9;
+    .action-btn-trigger .btn-label { display: flex; align-items: center; gap: 10px; color: var(--primary); }
+    .action-btn-trigger .arrow { transition: transform 0.3s ease; color: var(--amber); }
+    .action-btn-trigger.active .arrow { transform: rotate(180deg); }
+
+    .action-btn-content {
+      display: none;
+      padding: 20px;
+      border-top: 1px solid var(--card-border);
+      background: #060e1c;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      line-height: 1.8;
     }
-    .footer-email {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 700;
-      direction: ltr;
+    .action-btn-content.open { display: block; }
+    .action-btn-content h4 { color: var(--amber); margin-bottom: 10px; font-size: 1rem; }
+    .action-btn-content p { margin-bottom: 10px; }
+    .action-btn-content ul { margin-right: 20px; margin-bottom: 10px; }
+    .action-btn-content li { margin-bottom: 6px; }
+
+    /* Statement Notice */
+    .demo-notice {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px dashed #334155;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.7;
+      text-align: justify;
     }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-email { color: var(--primary); font-weight: bold; text-decoration: none; }
   </style>
 </head>
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- هدر فرماندهی -->
-    <header>
-      <div class="title-row">
-        <div>
-          <h1>پنل فرماندهی عملیات پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin)</h1>
-          <div class="author-badge">طراحی و توسعه مهندسی: حسین لعلیان (رتبه ۳۲ کنکور دکتری)</div>
-        </div>
-        <div class="status-strip">
-          <span class="badge badge-green"><span class="pulse-dot"></span>● HIL SIMULINK CONNECTED</span>
-          <span class="badge badge-blue">VIBRATION ANFIS ENGINE</span>
-          <span class="badge badge-amber">TURBINE UNIT #04 ONLINE</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- بیانیه حقوقی و فنی -->
-    <div class="disclaimer-box">
-      <div class="disclaimer-title">⚠️ بیانیه حقوقی و فنی سیستم (Demo Verification):</div>
-      <div class="disclaimer-text">
-        جهت ممانعت از کپی‌برداری غیرمجاز و حفظ حقوق مالکیت فکری، این پنلها؛پلتفرمها و داشبوردهای ارائه‌شده صرفاً یک دمو با داده‌های نمونه و تقلیل‌یافته (Synthetic/Minimal) می‌باشد. که در صورت ثبت سفارش صنعتی، پنل،پلتفرم و داشبورد نهایی شما بصورت تکاملی توسعه یافته و از طریق پروتکل‌های سخت‌افزاری صنعتی (HIL) به لبه‌های پردازشی واقعی (Real-Time Sensors Edge)، داده‌های واقعی و مدل‌های شبیه‌ساز Simulink متصل می‌گردد تا کمترین ضریب خطا محاسبه شود. و هر زمان پل واقعی Simulink/HIL و سنسورهای هوش مصنوعی لبه فدرال متصل شود، سیستم شما آماده دریافت اطلاعات زنده خواهد بود.
-      </div>
+  <!-- هدر رسمی -->
+  <header>
+    <h1>پنل، داشبورد و پلتفرم فرماندهی عملیات پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin)</h1>
+    <div class="subtitle">طراحی، پیاده‌سازی و هدایت علمی: مهندس حسین لعلیان (رتبه ۳۲ کنکور دکتری)</div>
+    <div class="badge-proposal">برگرفته از پرپوزال حسین لعلیان سال ۱۳۹۵</div>
+    <div class="status-strip">
+      <span class="badge emerald">DIGITAL TWIN: SYNCHRONIZED</span>
+      <span class="badge">VIBRATION ANALYZER: 48.5 Hz PEAK</span>
+      <span class="badge emerald">ISO 10816-3: CLASS 1 COMPLIANT</span>
+      <span class="badge">HIL SIMULINK INTERFACE: ACTIVE</span>
     </div>
+  </header>
 
-    <!-- ویجت‌های اصلی پایش و پیش‌بینی -->
-    <div class="metrics-grid">
-      <div class="metric-card metric-accent-1">
-        <div class="metric-label">شاخص سلامت سازه (Health Index)</div>
-        <div class="metric-val" style="color: var(--emerald);" id="healthIndex">۹۴.۶ ٪</div>
-        <div class="metric-sub">پایش بلادرنگ فرسایش یاتاقان و شفت</div>
-      </div>
-
-      <div class="metric-card metric-accent-2">
-        <div class="metric-label">عمر مفید باقی‌مانده (RUL Estimate)</div>
-        <div class="metric-val" id="rulValue">۴٬۸۲۰ ساعت</div>
-        <div class="metric-sub">تخمین استهلاک تا تعمیرات اساسی (Overhaul)</div>
-      </div>
-
-      <div class="metric-card metric-accent-3">
-        <div class="metric-label">شدت ارتعاشات موثر (RMS Vibration)</div>
-        <div class="metric-val" style="color: var(--amber);" id="rmsVib">2.11 mm/s</div>
-        <div class="metric-sub">در محدوده مجاز استاندارد ISO 10816-3</div>
-      </div>
-
-      <div class="metric-card metric-accent-4">
-        <div class="metric-label">فرکانس تشدید بحرانی (Critical Peak)</div>
-        <div class="metric-val" id="criticalFreq">48.4 Hz</div>
-        <div class="metric-sub">آنالیز فوریه سریع FFT لبه پردازشگر HIL</div>
-      </div>
+  <!-- کارت‌های تله‌متری پایش وضعیت -->
+  <div class="telemetry-grid">
+    <div class="metric-card">
+      <div class="metric-title">شاخص سلامت سازه (Health Index)</div>
+      <div class="metric-val" style="color: var(--emerald);">۹۴.۶ ٪</div>
+      <div class="metric-sub">پایش بلادرنگ فرسایش یاتاقان و شفت</div>
     </div>
-
-    <!-- نمودار ارتعاشات بلادرنگ پیزوالکتریک -->
-    <div class="chart-section">
-      <div class="chart-header">
-        <div class="chart-title">طیف ارتعاشات بلادرنگ سنسور پیزوالکتریک (Real-Time Vibration Waveform)</div>
-        <span class="badge badge-blue">Piezo-Sensor Sampling: 10 kHz</span>
-      </div>
-      <div class="canvas-container">
-        <canvas id="scopeCanvas"></canvas>
-      </div>
+    <div class="metric-card">
+      <div class="metric-title">عمر مفید باقی‌مانده (RUL Estimate)</div>
+      <div class="metric-val" style="color: var(--primary);">۴٬۸۲۰ ساعت</div>
+      <div class="metric-sub">تخمین استهلاک تا تعمیرات اساسی (Overhaul)</div>
     </div>
-
-    <!-- گزارش رویدادهای لبه -->
-    <div class="logs-card">
-      <div class="chart-title" style="margin-bottom: 4px;">گزارش رویدادهای هوش مصنوعی و تله‌متری لبه</div>
-      <div class="log-row">
-        <span class="log-tag">[سیستم]</span>
-        <span>اتصال بی‌درنگ لایه استنتاج فازی-عصبی ANFIS به شبیه‌ساز توربین مپنا/HIL برقرار است.</span>
-      </div>
-      <div class="log-row">
-        <span class="log-tag">[آنالیز]</span>
-        <span>عدم تعادل دینامیکی روتور کمتر از ۰.۰۵ گرم در حد استاندارد ISO محاسبه شد.</span>
-      </div>
-      <div class="log-row">
-        <span class="log-tag">[سنسور]</span>
-        <span>دمای هیدرودینامیک یاتاقان ژورنال ۶۲.۴ درجه سانتی‌گراد پایدار است.</span>
-      </div>
-      <div class="log-row">
-        <span class="log-tag">[مدل]</span>
-        <span>ضریب اطمینان شبکه پیش‌بینی واماندگی ۹۸.۷٪ ثبت گردید.</span>
-      </div>
+    <div class="metric-card">
+      <div class="metric-title">شدت ارتعاشات موثر (RMS Vibration)</div>
+      <div class="metric-val" style="color: var(--emerald);">۲.۱۴ mm/s</div>
+      <div class="metric-sub">در محدوده مجاز استاندارد ISO 10816-3</div>
     </div>
-
-    <!-- فوتر رسمی -->
-    <footer>
-      <div class="footer-name">مدیر عامل حسین لعلیان - رتبه ۳۲ کنکور دکتری</div>
-      <a href="mailto:ai.algorithms.ballistics@gmail.com" class="footer-email">ai.algorithms.ballistics@gmail.com</a>
-    </footer>
-
+    <div class="metric-card">
+      <div class="metric-title">فرکانس تشدید بحرانی (Critical Peak)</div>
+      <div class="metric-val" style="color: var(--amber);">۴۸.۵ Hz</div>
+      <div class="metric-sub">آنالیز فوریه سریع FFT لبه پردازشگر HIL</div>
+    </div>
   </div>
 
-  <script>
-    // اسیلوسکوپ زنده ارتعاشات غیرخطی پیزوالکتریک
-    const canvas = document.getElementById('scopeCanvas');
-    const ctx = canvas.getContext('2d');
-    let phase = 0;
+  <!-- ویجت شبیه‌ساز ارتعاشات بلادرنگ سنسور پیزوالکتریک -->
+  <div class="chart-container">
+    <div class="chart-header">
+      <div class="chart-title">طیف ارتعاشات بلادرنگ سنسور پیزوالکتریک (Real-Time Vibration Waveform)</div>
+      <span class="badge emerald">SAMPLE RATE: 10 kHz</span>
+    </div>
+    <canvas id="waveformCanvas"></canvas>
+  </div>
 
-    function resizeCanvas() {
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
+  <!-- لاگ رویدادهای زنده لبه -->
+  <div class="log-box">
+    <div class="log-line"><span class="tag">[سیستم]</span> اتصال بی‌درنگ لایه استنتاج به شبیه‌ساز توربین مپنا/HIL برقرار است. <span class="ok">✓</span></div>
+    <div class="log-line"><span class="tag">[آنالیز]</span> عدم تعادل دینامیکی روتور کمتر از ۰.۰۵ گرم در حد استاندارد. <span class="ok">✓</span></div>
+    <div class="log-line"><span class="tag">[سنسور]</span> دمای هیدرودینامیک یاتاقان ژورنال ۶۲.۴ درجه سانتی‌گراد پایدار. <span class="ok">✓</span></div>
+    <div class="log-line"><span class="tag">[مدل]</span> ضریب اطمینان شبکه پیش‌بینی واماندگی ۹۸.۷٪ ثبت گردید. <span class="ok">✓</span></div>
+  </div>
+
+  <!-- بخش ۵ دکمه تعاملی اختصاصی پایش سلامت و تحلیل ارتعاشات توربین (PHM) -->
+  <section class="ops-section">
+    <div class="ops-header-title">مرکز عملیاتی، فنی و حقوقی پلتفرم پایش سلامت و دوقلوی دیجیتال توربین (Turbine-PHM-AI)</div>
+    <div class="ops-header-subtitle">جهت مشاهده مستندات توجیهی، مکانیزم عیب‌یابی ارتعاشی، معماری عملیاتی و مدل‌های قراردادی روی هر بخش کلیک کنید:</div>
+
+    <!-- دکمه ۱ -->
+    <div class="action-btn-item">
+      <button class="action-btn-trigger" onclick="toggleOps('btn1')">
+        <span class="btn-label">
+          <span>🔘 دکمه ۱:</span>
+          <span>طرح توجیهی عملیاتی پلتفرم (پیشگیری از شات‌داون فاجعه‌بار و مدیریت ریسک توربین)</span>
+        </span>
+        <span class="arrow" id="arrow-btn1">▼</span>
+      </button>
+      <div class="action-btn-content" id="btn1">
+        <h4>پیشگیری فوری از خاموشی‌های ناخواسته (Unplanned Outages) و مدیریت ریسک تجهیزات دوار نیروگاهی</h4>
+        <p><strong>معرفی سامانه فرماندهی پایش سلامت و پیش‌بینی واماندگی (Turbine-PHM-AI):</strong></p>
+        <p>نیروگاه‌های حرارتی، گازی، سیکل ترکیبی و صنایع نفت و پتروشیمی امروز با دو تهدید مالی و عملیاتی فاجعه‌بار در تجهیزات دوار سنگین مواجهند:</p>
+        <ul>
+          <li><strong>۱. توقف ناگهانی و خروج اضطراری توربین از مدار (Trips):</strong> تحمیل خسارات سنگین چند ده میلیاردی ناشی از عدم‌النفع تولید برق یا وقفه در فرآیند پالایش به ازای هر ساعت خاموشی.</li>
+          <li><strong>۲. هزینه‌های هنگفت تعمیرات اساسی پیش‌هنگام یا خرابی کاتاستروفیک:</strong> از دست رفتن پره‌ها (Blade Failure)، شکست شفت و فرسایش شدید یاتاقان‌های ژورنال به دلیل کشف دیرهنگام ترک‌های ریزساختاری و ناپایداری‌های ارتعاشی غیرخطی.</li>
+        </ul>
+        <p><strong>راهکار سامانه:</strong> پیاده‌سازی مغز متفکر دوقلوی دیجیتال (Digital Twin) و هوش مصنوعی لبه متصل به سنسورهای سرعت‌سنج و شتاب‌سنج پیزوالکتریک روی پوسته و یاتاقان‌های توربین جهت تخمین بلادرنگ عمر مفید باقی‌مانده (RUL)، حذف تعمیرات سنتی دوره‌ای و جایگزینی با نگهداری مبتنی بر وضعیت (CBM).</p>
+        <p><strong>این داشبورد روی ناوگان توربین چه کاری انجام می‌دهد؟</strong></p>
+        <ul>
+          <li><strong>جلوگیری هوشمند از ورود به رزونانس و ارتعاش بحرانی:</strong> زمانی که دامنه ارتعاشات به آستانه‌های هشدار استاندارد ISO 10816 نزدیک می‌شود، سیستم فوراً نوع عیب (عدم تعادل دینامیکی، ناهم‌راستایی، لقی مکانیکی یا کاویتاسیون) را از طریق طیف‌سنجی فوریه (FFT) و موجک تفکیک نموده و ست‌پوینت‌های ایمن را به سامانه دیسپاچینگ اعمال می‌کند.</li>
+          <li><strong>تخصیص بهینه بار و استهلاک توربین‌ها:</strong> در هر ساعت از بهره‌برداری، بر مبنای شاخص سلامت سلامت یاتاقان‌ها و تنش‌های حرارتی-مکانیکی روتور، بهترین توزیع بار را پیشنهاد داده تا فاصله زمانی میان دو تعمیر اساسی (Overhaul) به حداکثر ممکن افزایش یابد.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- دکمه ۲ -->
+    <div class="action-btn-item">
+      <button class="action-btn-trigger" onclick="toggleOps('btn2')">
+        <span class="btn-label">
+          <span>🔘 دکمه ۲:</span>
+          <span>مکانیزم کاری و ارزش پیشنهادی سامانه در عیب‌یابی پیش‌دستانه تجهیزات دوار</span>
+        </span>
+        <span class="arrow" id="arrow-btn2">▼</span>
+      </button>
+      <div class="action-btn-content" id="btn2">
+        <h4>مسئله روز صنعت نیروگاهی و ارزش پیشنهادی اختصاصی دوقلوی دیجیتال</h4>
+        <p><strong>مسئله روز نیروگاه‌ها و مجتمع‌های پتروشیمی:</strong> فرسایش پنهان قطعات دوار با سرعت دورانی بالا، ناتوانی روش‌های مرسوم پایش ارتعاشات در آشکارسازی زودهنگام پدیده‌های غیرخطی (نظیر سایش موضعی، پدیده Oil Whirl یا تشدید زیرفرکانسی) و تحمیل هزینه‌های سرسام‌آور تعویض زودهنگام قطعات سالم.</p>
+        <p><strong>راهکار سامانه ما:</strong></p>
+        <ul>
+          <li><strong>دیده‌بانی یکپارچه ارتعاشی و ترمودینامیکی:</strong> پایش و مدل‌سازی در لحظه سیگنال‌های ارتعاشی چندمحوره (شعاعی و محوری)، مدار چرخش شفت (Shaft Orbit)، دمای فیلم روغن یاتاقان، فشار هیدرودینامیک و فلوی گاز/بخار.</li>
+          <li><strong>حذف خطای تشخیص کاذب و پیش‌بینی زودهنگام واماندگی:</strong> مهار خطاهای مدل‌سازی از طریق شبکه‌های عصبی عمیق تحلیل موجک و فیلترهای کالمن تطبیقی جهت کشف میکروترک‌ها از صدها ساعت قبل از شکست فیزیکی.</li>
+          <li><strong>تخمین دقیق عمر مفید باقی‌مانده (RUL Prognosis):</strong> محاسبه زمان دقیق تا نیاز به تعویض یا اورهال بر پایه توابع استهلاک دینامیکی، جهت برنامه‌ریزی دقیق قطعات یدکی و اورهال بدون غافلگیری.</li>
+          <li><strong>ارتباط مستقیم صنعتی:</strong> قابلیت اتصال خروجی پلتفرم از طریق Industrial IoT، پروتکل‌های استاندارد مانیتورینگ ارتعاشی (Modbus TCP، OPC-UA، پروتکل‌های خانواده Bently Nevada / Emerson AMS) به سامانه‌های DCS نیروگاه، SCADA و PLCها جهت صدور فرامین تریپ یا اصلاح بار.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- دکمه ۳ -->
+    <div class="action-btn-item">
+      <button class="action-btn-trigger" onclick="toggleOps('btn3')">
+        <span class="btn-label">
+          <span>🔘 دکمه ۳:</span>
+          <span>مسیر عملیاتی پلتفرم و الگوریتم‌های مهار خستگی و شکست در لحظه</span>
+        </span>
+        <span class="arrow" id="arrow-btn3">▼</span>
+      </button>
+      <div class="action-btn-content" id="btn3">
+        <h4>معماری پردازشی گام‌به‌گام سامانه در مدار پایش سلامت توربین</h4>
+        <ul>
+          <li><strong>۱. دیده‌بانی چندمنظوره لبه (Edge Acquisition):</strong> سیستم ما در هر میلی‌ثانیه پارامترهای دامنه شتاب ارتعاش، فرکانس‌های گذر پره (Blade Pass Frequency)، سرعت خطی روتور و دمای ترموکوپل‌های تعبیه‌شده را اسکن و واکاوی می‌کند.</li>
+          <li><strong>۲. الگوریتم جداسازی ارتعاشات گذرا و تشخیص عیب اولیه:</strong> در صورت پیدایش شوک‌های ناگهانی یا تغییرات فاز در ارتعاش یاتاقان، سیستم بلافاصله داده‌های گذرا را فیلتر کرده و کانون تمرکز تنش را پیش از سرایت به ژنراتور ایزوله می‌کند.</li>
+          <li><strong>۳. نگهداری پیش‌بینانه و بهینه‌سازی بار (Predictive Health Scheduling):</strong> مشخص می‌کند در هر شرایط کاری (بار پایه، پیک حرارتی یا مدهای مانوری)، توربین با چه رژیم دینامیکی کار کند تا کمترین تنش تجمعی خستگی (Cumulative Fatigue) بر شفت و دیسک‌ها وارد گردد.</li>
+          <li><strong>۴. خروجی آماده فرماندهی و اتوماسیون:</strong> این داشبورد تنها صفحه نمایش گرافیکی نیست؛ لایه خروجی آن مستقیماً با سیستم گاورنر، کارت‌های حفاظتی روتور و رله‌های ایمنی DCS نیروگاه ارتباط برقرار ساخته و آلارم‌های سطح ۱، ۲ و دستور کاهش بار اضطراری صادر می‌کند.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- دکمه ۴ -->
+    <div class="action-btn-item">
+      <button class="action-btn-trigger" onclick="toggleOps('btn4')">
+        <span class="btn-label">
+          <span>🔘 دکمه ۴:</span>
+          <span>نکات کلیدی قرارداد، تضمین محرمانگی داده‌ها و فاز پایلوت</span>
+        </span>
+        <span class="arrow" id="arrow-btn4">▼</span>
+      </button>
+      <div class="action-btn-content" id="btn4">
+        <h4>اصول حقوقی، مهندسی و الزامات همکاری صنعتی</h4>
+        <ul>
+          <li><strong>۱. محدوده مسئولیت (Disclaimer):</strong> قید می‌شود که عملکرد پلتفرم بر پایه صحت کالیبراسیون و سلامت سنسورهای فیزیکی کارفرما (ترانسدیوسرهای جابجایی، پروب‌های ادی‌کارنت، شتاب‌سنج‌ها و کابل‌کشی ضد نویز) است و بروز وقایع خارجی خارج از سیگنال‌های دریافتی (نظیر ورود جسم خارجی فیزیکی شدید FOD بدون پیش‌سیگنال قبلی) خارج از شمول تعهدات الگوریتمی نرم‌افزار است.</li>
+          <li><strong>۲. محرمانگی کامل داده‌ها (Strict NDA):</strong> کلیه اطلاعات بهره‌برداری توربین، ساعات کارکرد، نمودارهای سلامت، داده‌های حساس روتور و ساختار نیروگاه کارفرما محرمانه مطلق تلقی شده و پروتکل‌های ایزولاسیون کامل داده‌ای روی سرور محلی (On-Premise) تضمین می‌گردد.</li>
+          <li><strong>۳. فاز پایلوت مشروط (Proof of Concept):</strong> برای اثبات قطعی کارایی، یک دوره پایلوت ۱ تا ۳ ماهه با تعریف شاخص‌های کلیدی عملکرد (KPI شفاف مثل دقت بالای ۹۵٪ در تخمین فرکانس تشدید و تفکیک ارتعاشات ژورنال از نویز پس‌زمینه) توافق و روی یک واحد نیروگاهی مستقر می‌گردد.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- دکمه ۵ -->
+    <div class="action-btn-item">
+      <button class="action-btn-trigger" onclick="toggleOps('btn5')">
+        <span class="btn-label">
+          <span>🔘 دکمه ۵:</span>
+          <span>مدل‌های پیشنهادی مشارکت تجاری و استقرار سازمانی در نیروگاه</span>
+        </span>
+        <span class="arrow" id="arrow-btn5">▼</span>
+      </button>
+      <div class="action-btn-content" id="btn5">
+        <h4>مدل‌های تجاری منعطف متناسب با ساختار بهره‌برداری نیروگاه</h4>
+        <p><strong>مدل اول: قرارداد تسهیم صرفه‌جویی و کاهش ریسک شات‌داون (Shared Downtime Savings / Risk-Reward)</strong><br>
+        اگر کارفرما مایل به اختصاص بودجه سرمایه‌ای کلان در فاز اول نیست، ماژول پایش سلامت و دوقلوی دیجیتال به‌صورت پایلوت روی یک توربین منتخب نصب می‌شود. در ازای جلوگیری از هر مورد توقف ناخواسته (Unplanned Trip) و بهینه‌سازی فاصله اورهال که مانع از تحمیل صدها میلیارد ریال خسارت به نیروگاه می‌گردد، درصد مشخص و کارشناسی‌شده‌ای از ارزش صرفه‌جویی محقق‌شده به تیم تحقیق و توسعه تخصیص می‌یابد.</p>
+        
+        <p><strong>مدل دوم: واگذاری لایسنس سازمانی دوقلوی دیجیتال (Enterprise License + Annual Maintenance)</strong><br>
+        واگذاری کامل نرم‌افزار مانیتورینگ، استقرار روی سرورهای داخلی دیتاسنتر کارخانه/نیروگاه (On-Premises)، آموزش جامع تیم مانیتورینگ وضعیت، کالیبراسیون الگوهای هوش مصنوعی بر اساس رژیم‌های کاری سالانه و پشتیبانی ۲۴ ساعته لایه تحلیل داده.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- بیانیه حقوقی و فنی سیستم -->
+  <div class="demo-notice">
+    <strong>بیانیه حقوقی و فنی سیستم (Demo Verification):</strong> جهت ممانعت از کپی‌برداری غیرمجاز و حفظ حقوق مالکیت فکری، این پنلها؛ پلتفرمها و داشبوردهای ارائه‌شده صرفاً یک دمو با داده‌های نمونه و تقلیل‌یافته (Synthetic/Minimal) می‌باشد. در صورت ثبت سفارش صنعتی، پنل، پلتفرم و داشبورد نهایی شما بصورت تکاملی توسعه یافته و از طریق پروتکل‌های سخت‌افزاری صنعتی (HIL) به لبه‌های پردازشی واقعی (Real-Time Sensors Edge)، داده‌های مدل‌های شبیه‌ساز Simulink متصل می‌گردد تا کمترین ضریب خطا محاسبه شود. و هر زمان پل واقعی Simulink/HIL و سنسورهای هوش مصنوعی لبه فدرال متصل شود، سیستم شما آماده دریافت اطلاعات زنده خواهد بود.
+  </div>
+
+  <!-- فوتر رسمی -->
+  <footer>
+    <div>شرکت صنایع پردرآمد تهرانیها | تولیدکننده داشبوردها و پلتفرم‌های هوش مصنوعی صنعتی</div>
+    <div>مدیر عامل و طراح سامانه: <strong>مهندس حسین لعلیان</strong> (رتبه ۳۲ کنکور دکتری)</div>
+    <div>برگرفته از پرپوزال حسین لعلیان سال ۱۳۹۵</div>
+    <div>رایانامه ارتباط رسمی: <a class="contact-email" href="mailto:ai.algorithms.ballistics@gmail.com">ai.algorithms.ballistics@gmail.com</a></div>
+  </footer>
+
+</div>
+
+<!-- اسکریپت شبیه‌ساز زنده ارتعاشات و مدیریت آکاردئون‌ها -->
+<script>
+  // عملکرد آکاردئونی باز و بسته شدن دکمه‌های تعاملی
+  function toggleOps(id) {
+    const content = document.getElementById(id);
+    const arrow = document.getElementById('arrow-' + id);
+    const trigger = arrow.parentElement;
+    
+    if (content.classList.contains('open')) {
+      content.classList.remove('open');
+      trigger.classList.remove('active');
+    } else {
+      content.classList.add('open');
+      trigger.classList.add('active');
     }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+  }
 
-    function drawWave() {
-      ctx.fillStyle = '#040812';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // رسم فرم موج ارتعاشات سنسور پیزوالکتریک بلادرنگ در بوم Canvas
+  const canvas = document.getElementById('waveformCanvas');
+  const ctx = canvas.getContext('2d');
+  let phase = 0;
 
-      // رسم شبکه شطرنجی پس‌زمینه
-      ctx.strokeStyle = 'rgba(30, 41, 59, 0.4)';
-      ctx.lineWidth = 1;
-      const step = 30;
-      for (let x = 0; x < canvas.width; x += step) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < canvas.height; y += step) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.width, y);
-        ctx.stroke();
-      }
+  function resizeCanvas() {
+    canvas.width = canvas.parentElement.clientWidth - 40;
+    canvas.height = 180;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
 
-      // رسم موج ارتعاشی
-      ctx.beginPath();
-      ctx.strokeStyle = '#38bdf8';
-      ctx.lineWidth = 2;
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = '#38bdf8';
+  function drawWaveform() {
+    ctx.fillStyle = '#060e1c';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const midY = canvas.height / 2;
-      for (let x = 0; x < canvas.width; x++) {
-        const t = (x * 0.035) + phase;
-        // ترکیب هارمونیک اصلی + هارمونیک ۳ام فرکانس تیغه‌ها + نویز تصادفی صنعتی
-        const y = midY + 
-                  Math.sin(t) * 38 + 
-                  Math.sin(t * 2.8) * 16 + 
-                  (Math.random() - 0.5) * 4;
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-
-      phase += 0.08;
-      requestAnimationFrame(drawWave);
+    // گرید پس‌زمینه
+    ctx.strokeStyle = 'rgba(30, 41, 59, 0.6)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x < canvas.width; x += 40) {
+      ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height);
     }
-    drawWave();
+    for (let y = 0; y < canvas.height; y += 30) {
+      ctx.moveTo(0, y); ctx.lineTo(canvas.width, y);
+    }
+    ctx.stroke();
 
-    // به‌روزرسانی دینامیک ملایم مقادیر تله‌متری
-    setInterval(() => {
-      const rms = (2.10 + Math.random() * 0.04).toFixed(2);
-      document.getElementById('rmsVib').innerText = rms + ' mm/s';
-      
-      const freq = (48.3 + Math.random() * 0.3).toFixed(1);
-      document.getElementById('criticalFreq').innerText = freq + ' Hz';
-    }, 2000);
-  </script>
+    // موج ارتعاشی مرکب (ترکیب هارمونیک پایه ۴۸.۵ هرتز + نویز و هارمونیک دوم)
+    ctx.strokeStyle = '#38bdf8';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    const midY = canvas.height / 2;
+    for (let x = 0; x < canvas.width; x++) {
+      const t = (x * 0.04) + phase;
+      const wave1 = Math.sin(t) * 45;
+      const wave2 = Math.sin(t * 2.1) * 18;
+      const noise = (Math.random() - 0.5) * 6;
+      const y = midY + wave1 + wave2 + noise;
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    phase += 0.08;
+    requestAnimationFrame(drawWaveform);
+  }
+  drawWaveform();
+</script>
+
 </body>
 </html>

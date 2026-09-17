@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سامانه پایش سلامت و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM-AI) | حسین لعلیان</title>
+  <title>پنل فرماندهی عملیات پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin) | حسین لعلیان</title>
   <style>
     :root {
       --bg: #070b13;
@@ -47,7 +47,8 @@
       gap: 12px;
     }
     h1 {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
+      line-height: 1.6;
       color: #fff;
       margin-bottom: 6px;
     }
@@ -196,8 +197,8 @@
   <header>
     <div class="header-top">
       <div>
-        <h1>سامانه هوشمند پایش سلامت و پیش‌بینی واماندگی تجهیزات دوار (PHM - AI)</h1>
-        <div class="subtitle">طراحی و توسعه مهندسی: حسین لعلیان (رتبه ۳۲ کنکور دکتری)</div>
+        <h1>پنل  فرماندهی عملیات پایش سلامت، تحلیل ارتعاشات غیرخطی و پیش‌بینی واماندگی تجهیزات دوار و توربین‌های نیروگاهی (PHM - AI Digital Twin)</h1>
+        <div class="subtitle">طراحی و توسعه مهندسی: حسین لعلیان (رتبه ۳۲ کنکور دکتری) | برگرفته از پرپوزال حسین لعلیان سال ۱۳۹۵</div>
       </div>
       <div class="badges">
         <span class="badge badge-hil">● HIL SIMULINK CONNECTED</span>
@@ -282,7 +283,6 @@
     function drawWave() {
       ctx.clearRect(0, 0, width, height);
       
-      // رسم شبکه شطرنجی
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
       ctx.lineWidth = 1;
       for (let x = 0; x < width; x += 40) {
@@ -298,13 +298,11 @@
         ctx.stroke();
       }
 
-      // رسم موج ارتعاشات تلفیقی
       ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 2;
       ctx.beginPath();
       for (let x = 0; x < width; x++) {
         const t = (x + offset) * 0.05;
-        // ترکیب هارمونیک اصلی + هارمونیک دوم بلبرینگ + نویز
         const y = height / 2 + 
                   Math.sin(t) * 35 + 
                   Math.sin(t * 2.8) * 15 + 
@@ -319,7 +317,6 @@
     }
     drawWave();
 
-    // به‌روزرسانی میکرو مقادیر
     setInterval(() => {
       const rms = (2.10 + Math.random() * 0.08).toFixed(2);
       const freq = (48.3 + Math.random() * 0.4).toFixed(1);
